@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/first page.unity
+    guid: 2556633aa4c79fb4e84bdbbf6bd87632
+  - enabled: 1
+    path: Assets/Scenes/WELCOME 1.unity
+    guid: 8aca9c001bc62b84a9fa4e0bc752e5a7
+  - enabled: 1
+    path: Assets/Scenes/Register Name.unity
+    guid: bc50d73bd500e9e4fb5076cccdc80dee
+  - enabled: 1
+    path: Assets/Scenes/Register Age.unity
+    guid: 139fbb909e252ed408e778d1144e12e3
+  - enabled: 1
+    path: Assets/Scenes/Register Gender.unity
+    guid: b013107a71023c646bf33d123df7b2fd
+  - enabled: 1
+    path: Assets/Scenes/Register patient id.unity
+    guid: c38faee0331353e49b96d34fb206559c
+  - enabled: 1
+    path: Assets/Scenes/Registered successfully.unity
+    guid: d0e5bdbfea39eb64792cd8d218f5741a
+  - enabled: 1
+    path: Assets/Scenes/Dashboard.unity
+    guid: d5e9de3ac135b9446b47d22a57989a4d
+  - enabled: 1
+    path: Assets/Scenes/Set Timer ppractice.unity
+    guid: 332e2410efe7af44ab862a4848635bad
+  - enabled: 1
+    path: Assets/Scenes/Set Timer Analysis.unity
+    guid: 0fa0da57d14c86247b1a0cdd4c1cdad4
+  - enabled: 1
+    path: Assets/Scenes/Set Timer practice.unity
+    guid: b0c3023684b31bc4d9a4de117038b982
+  - enabled: 1
+    path: Assets/Scenes/Mode select Practice.unity
+    guid: 0dbcebb683af06840a51cc932f6141cf
+  - enabled: 1
+    path: Assets/Scenes/Mode select Analysis.unity
+    guid: 34e932bce247dd9488b5575b05989cb9
+  - enabled: 1
+    path: Assets/Scenes/MODE LEG TYPE PRACTICE.unity
+    guid: 1cac96f315ba6db4d87d04715e000eb8
+  - enabled: 1
+    path: Assets/Scenes/MODE LEG TYPE ANALYSIS.unity
+    guid: b103f621966273b4bac7a3a8f71a1599
+  - enabled: 1
+    path: Assets/Scenes/Sensitivity Practice.unity
+    guid: 2fd40e0c26d4006488c996f671872aa4
+  - enabled: 1
+    path: Assets/Scenes/Sensitivity Analysis.unity
+    guid: a1433fdb2e0221c4f98238a059da6996
+  - enabled: 1
+    path: Assets/Scenes/Start Analysis Horizontal.unity
+    guid: 87294f46434b81a45b258a97d67e84a3
+  - enabled: 1
+    path: Assets/Scenes/Start Analysis Vertical.unity
+    guid: 577069b7ce9d6f442a460a8a4572b798
+  - enabled: 1
+    path: Assets/Scenes/Start Practice Horizontal.unity
+    guid: 536827f9996130f4aa3eca489f8f7827
+  - enabled: 1
+    path: Assets/Scenes/Start Practice Vertical.unity
+    guid: 809ae6834e481044b9d2fe2e1ae8447b
+  - enabled: 1
+    path: Assets/Scenes/GYRO BALANCE Practice Horizontal.unity
+    guid: c7948022c8eda8e479ab99c6db1a089f
+  - enabled: 1
+    path: Assets/Scenes/GYRO BALANCE Practice Vertical.unity
+    guid: 10ff0edd051e7304ead5e460e84470c6
+  - enabled: 1
+    path: Assets/Scenes/GYRO BALANCE Analysis Vertical.unity
+    guid: 67c493b5f02e8e845b50ffd0db1acd5a
+  - enabled: 1
+    path: Assets/Scenes/GYRO BALANCE Analysis Horizontal.unity
+    guid: 561798b89d5b099498f7a99882673f88
+  - enabled: 1
+    path: Assets/Scenes/Analysis Report.unity
+    guid: c0aeacc173dd0ba48bdd9dc211fae3cf
+  - enabled: 1
+    path: Assets/Scenes/Analysis Report Horizontal.unity
+    guid: bd961393f1c3e9243a127f15389f7e61
+  m_configObjects: {}
