@@ -8,7 +8,8 @@ public class Startup : MonoBehaviour
         if (PlayerPrefs.GetInt("IsRegistered", 0) == 1)
         {
             // User is registered, load the main scene
-            SceneManager.LoadScene("Dashboard");
+            /* SceneManager.LoadScene("Dashboard");*/
+            SceneManager.LoadScene("WELCOME 1");
         }
         else
         {
