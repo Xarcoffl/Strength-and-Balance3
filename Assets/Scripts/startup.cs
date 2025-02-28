@@ -9,12 +9,12 @@ public class Startup : MonoBehaviour
         {
             // User is registered, load the main scene
             /* SceneManager.LoadScene("Dashboard");*/
-            SceneManager.LoadScene("WELCOME 1");
+            SceneManager.LoadScene("Register Name");
         }
         else
         {
             // User is not registered, load the registration scene
-            SceneManager.LoadScene("WELCOME 1");
+            SceneManager.LoadScene("Register Name");
         }
     }
 }
