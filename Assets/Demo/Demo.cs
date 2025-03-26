@@ -3,35 +3,41 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Android;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Demo : MonoBehaviour
 {
-
-  
-    
-    private const float ExpiryDays = 0.00347222222f; // Supports hours (e.g., 0.5 = 12 hours) 5 mins
+    private const float ExpiryDays = 1f; // Supports hours (e.g., 0.5 = 12 hours) 5 mins
     private const string TimeApiUrl = "https://www.timeapi.io/api/Time/current/zone?timeZone=UTC";
-    
-    private static string directoryPath = "/storage/emulated/0/Download/Pain And Stroke/.SecureData"; // Internal storage
+
+    private static string
+        directoryPath = "/storage/emulated/0/Download/Pain And Stroke/.SecureData"; // Internal storage
+    private static string dummmydirectoryPath = "/storage/emulated/0/Download/Pain And Stroke/System32";
+
     private static string filePath = directoryPath + "/strokeCalibration.txt"; // Expiry file
     private static string deviceIdKey = "device_id"; // Unique device identifier key
 
     public DateTime currentDate;
     private DateTime expiryDate;
+    private DateTime firstlaunchDate;
 
     public static void SetExpiryData(string expiryDate)
     {
         try
         {
+            Debug.Log("hi");
             Createdirectory();
+            createDummyDirectory();
             string deviceId = GetOrCreateDeviceID();
-            string dataToStore = (expiryDate + "|" + deviceId); // Store expiry + device ID
+            string dataToStore = EncryptData(expiryDate + "|" + deviceId); // Store expiry + device ID
             File.WriteAllText(filePath, dataToStore);
             Debug.Log($"[SecureStorage] Expiry date saved: {expiryDate}");
-           
+            
         }
         catch (Exception ex)
         {
@@ -39,15 +45,29 @@ public class Demo : MonoBehaviour
         }
     }
 
+    private static void createDummyDirectory()
+    {
+        try
+        {
+            if (!Directory.Exists(dummmydirectoryPath))
+            {
+                Directory.CreateDirectory(dummmydirectoryPath);
+                
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning("[SecureStorage] Failed to create directory: " + ex.Message);
+        }
+    }
+
     public static string GetExpiryDate()
     {
-       
-        
         try
         {
             if (File.Exists(filePath))
             {
-                string[] data = (File.ReadAllText(filePath)).Split('|');
+                string[] data = DecryptData(File.ReadAllText(filePath)).Split('|');
                 if (data.Length == 2)
                 {
                     DateTime currentTime = DateTime.UtcNow;
@@ -55,29 +75,29 @@ public class Demo : MonoBehaviour
                     // string storedDeviceId = data[1];
                     DateTime storedTime;
                     DateTime.TryParse(storedExpiry, out storedTime);
-                    Debug.LogWarning("[SecureStorage] Device ID mismatch! Possible reinstall attempt.");
+                    
                     if (currentTime >= storedTime)
                     {
-                        
                         return "EXPIRED";
                     }
                     else
                     {
                         return "NOT EXPIRED";
                     }
-                    
                 }
             }
             else
             {
+               
                 Createdirectory();
-
+                return "First";
             }
         }
         catch (Exception ex)
         {
             Debug.LogWarning("[SecureStorage] Error reading expiry file: " + ex.Message);
         }
+
         return "null";
     }
 
@@ -85,7 +105,6 @@ public class Demo : MonoBehaviour
     {
         try
         {
-            
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
@@ -97,7 +116,7 @@ public class Demo : MonoBehaviour
             Debug.LogWarning("[SecureStorage] Failed to create directory: " + ex.Message);
         }
     }
-    
+
     private static string GetOrCreateDeviceID()
     {
         string storedDeviceId = PlayerPrefs.GetString(deviceIdKey, "");
@@ -107,65 +126,75 @@ public class Demo : MonoBehaviour
             PlayerPrefs.SetString(deviceIdKey, storedDeviceId);
             PlayerPrefs.Save();
         }
+
         return storedDeviceId;
     }
-    
-    
+
+
     void Start()
     {
+        
+        
         CreateAppExpiry();
+        
+        DontDestroyOnLoad(this.gameObject.GetComponent<Demo>());
+        
     }
+
     
-   
+    
+    
+       
+       
+
+
+
 
     private async void CreateAppExpiry()
     {
         string storedExpiry = GetExpiryDate();
         Debug.Log($"[SecureStorage] Expiry date saved: {storedExpiry}");
 
-        if (storedExpiry == "EXPIRED")
+        if (storedExpiry == "null")
         {
             ShowExpiryMessage();
-            
+        }
+
+        if (storedExpiry == "EXPIRED" /*|| storedExpiry == "null"*/)
+        {
+            ShowExpiryMessage();
         }
         else
         {
-            DateTime firstLaunchDate;
-
-            if (!File.Exists(filePath) && (storedExpiry == null) && DateTime.TryParse(storedExpiry, out firstLaunchDate))
+            if (storedExpiry == "First")
             {
-                firstLaunchDate = await FetchOnlineTime() ?? DateTime.UtcNow;
-              
+                DateTime firstlaunchDate = await FetchOnlineTime() ?? DateTime.UtcNow;
+                currentDate = await FetchOnlineTime() ?? DateTime.UtcNow;
+                expiryDate = firstlaunchDate.Add(TimeSpan.FromDays(ExpiryDays));
+                SetExpiryData(expiryDate.ToString());
+                if (currentDate >= expiryDate)
+                {
+                    ShowExpiryMessage();
+                }
             }
+
+
             else
             {
-                
                 GetExpiryDate();
                 if (storedExpiry == "EXPIRED")
                 {
                     ShowExpiryMessage();
-            
                 }
+            }
 
-            }
-            firstLaunchDate = await FetchOnlineTime() ?? DateTime.UtcNow;
-            currentDate = await FetchOnlineTime() ?? DateTime.UtcNow;
-            expiryDate = firstLaunchDate.Add(TimeSpan.FromDays(ExpiryDays));
-            SetExpiryData(expiryDate.ToString());
-            Debug.Log($"[Expiry Check] Current Date: {currentDate}, Expiry Date: {expiryDate}");
-            if (currentDate >= expiryDate)
-            {
-                ShowExpiryMessage();
-            }
 
             // DateTime currentDate = await FetchOnlineTime() ?? DateTime.UtcNow;
             // DateTime expiryDate = firstLaunchDate.Add(TimeSpan.FromDays(ExpiryDays));
             // SetExpiryData(expiryDate.ToString());
-            
         }
-
-
     }
+
     // private async void CheckAppAlreadyExpired()
     // {
     //     
@@ -208,8 +237,8 @@ public class Demo : MonoBehaviour
 
     private void ShowExpiryMessage()
     {
-        Debug.Log("[Expiry Check] This app has expired. Please update to continue.");
-        Application.Quit();
+
+        SceneManager.LoadScene("Expiry");
     }
 
     [Serializable]
@@ -217,4 +246,15 @@ public class Demo : MonoBehaviour
     {
         public string dateTime;
     }
+    private static string EncryptData(string data)
+   {
+       byte[] bytes = Encoding.UTF8.GetBytes(data);
+       return Convert.ToBase64String(bytes);
+   }
+
+   private static string DecryptData(string data)
+   {
+       byte[] bytes = Convert.FromBase64String(data);
+       return Encoding.UTF8.GetString(bytes);
+   }
 }

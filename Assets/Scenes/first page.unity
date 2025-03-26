@@ -591,6 +591,10 @@ PrefabInstance:
       propertyPath: Transition
       value: 
       objectReference: {fileID: 807941556}
+    - target: {fileID: 85331636086343983, guid: 8798e0b1a85c0dd4fae96334d2b5d789, type: 3}
+      propertyPath: transitiontime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 239068826114952583, guid: 8798e0b1a85c0dd4fae96334d2b5d789, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.34

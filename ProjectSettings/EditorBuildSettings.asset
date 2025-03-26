@@ -62,4 +62,43 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Expiry.unity
     guid: 8bf389a2728794f88929af4d073ba477
+  - enabled: 1
+    path: Assets/Scenes/Analysis Report.unity
+    guid: c0aeacc173dd0ba48bdd9dc211fae3cf
+  - enabled: 1
+    path: Assets/Scenes/Analysis Report Horizontal.unity
+    guid: bd961393f1c3e9243a127f15389f7e61
+  - enabled: 1
+    path: Assets/Scenes/GYRO BALANCE Analysis Horizontal.unity
+    guid: 561798b89d5b099498f7a99882673f88
+  - enabled: 1
+    path: Assets/Scenes/GYRO BALANCE Analysis Vertical.unity
+    guid: 4e56c072feca3f247a244c28aa26bf55
+  - enabled: 1
+    path: Assets/Scenes/LEVEL0.unity
+    guid: b781cacf1b8f61c40962b5f62d8de58a
+  - enabled: 1
+    path: Assets/Scenes/LEVEL1.unity
+    guid: b53c06c44ff99e24fb514b78e826e69a
+  - enabled: 1
+    path: Assets/Scenes/LEVEL2.unity
+    guid: ef9bdb3eb5e8f93479536c82c31bff05
+  - enabled: 1
+    path: Assets/Scenes/Mode select Analysis.unity
+    guid: 34e932bce247dd9488b5575b05989cb9
+  - enabled: 1
+    path: Assets/Scenes/Sensitivity Analysis.unity
+    guid: a1433fdb2e0221c4f98238a059da6996
+  - enabled: 1
+    path: Assets/Scenes/Set Timer Analysis.unity
+    guid: 0fa0da57d14c86247b1a0cdd4c1cdad4
+  - enabled: 1
+    path: Assets/Scenes/Start Analysis Horizontal.unity
+    guid: 87294f46434b81a45b258a97d67e84a3
+  - enabled: 1
+    path: Assets/Scenes/Start Analysis Vertical.unity
+    guid: 577069b7ce9d6f442a460a8a4572b798
+  - enabled: 1
+    path: Assets/Scenes/Full Version.unity
+    guid: 23a4725798d8f42748c3b03fc30e9449
   m_configObjects: {}
